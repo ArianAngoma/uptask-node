@@ -1,5 +1,7 @@
 const home = (req, res) => {
-    res.render('index')
+    res.render('index', {
+        namePage: 'Proyectos'
+    })
 }
 
 module.exports = {

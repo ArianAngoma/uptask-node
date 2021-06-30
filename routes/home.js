@@ -1,8 +1,8 @@
 const {Router} = require('express');
-const {home} = require("../controllers/home");
+const {home, about} = require("../controllers/home");
 const router = Router();
 
-router.use('/', [
+router.get('/', [
 
 ], home);
 
