@@ -41,7 +41,7 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.path.index, require('../routes/home'));
+        this.app.use(this.path.index, require('../routes/projects'));
     }
 
 
