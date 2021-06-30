@@ -4,6 +4,11 @@ const cors = require('cors');
 const morgan = require('morgan')
 const bodyParser = require('body-parser');
 
+const {dbConnection} = require('../config/db');
+
+// Importar el modelo
+require('../models/projects');
+
 class Server {
     constructor() {
         this.app = express();
@@ -13,11 +18,23 @@ class Server {
             projects: ''
         }
 
+        // Conección a la base de datos
+        this.connectDB();
+
         // Middlewares
         this.middlewares();
 
         // Rutas de la app
         this.routes();
+    }
+
+    async connectDB() {
+        try {
+            await dbConnection.sync();
+            console.log('La conexión se ha establecido correctamente.');
+        } catch (error) {
+            console.error('No se puede conectar a la base de datos: ', error);
+        }
     }
 
     middlewares() {
