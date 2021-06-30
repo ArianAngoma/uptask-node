@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan')
+const bodyParser = require('body-parser');
 
 class Server {
     constructor() {
@@ -9,7 +10,7 @@ class Server {
         this.port = process.env.PORT;
 
         this.path = {
-            index: ''
+            projects: ''
         }
 
         // Middlewares
@@ -18,7 +19,6 @@ class Server {
         // Rutas de la app
         this.routes();
     }
-
 
     middlewares() {
         // CORS
@@ -37,13 +37,15 @@ class Server {
         this.app.set('view engine', 'pug');
 
         // Añadir carpetas de vistas
-        this.app.set('views', path.join(__dirname, '../views'))
+        this.app.set('views', path.join(__dirname, '../views'));
+
+        // Habilitar body-parser para leer datos del formulario
+        this.app.use(bodyParser.urlencoded({extended: true}));
     }
 
     routes() {
-        this.app.use(this.path.index, require('../routes/projects'));
+        this.app.use(this.path.projects, require('../routes/projects'));
     }
-
 
     listen() {
         this.app.listen(this.port, () => {
