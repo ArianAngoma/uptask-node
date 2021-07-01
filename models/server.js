@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser');
 
 const {dbConnection} = require('../config/db');
+const {varDump} = require('../helpers/db-data');
 
 // Importar el modelo
 require('../models/projects');
@@ -55,6 +56,12 @@ class Server {
 
         // Añadir carpetas de vistas
         this.app.set('views', path.join(__dirname, '../views'));
+
+        // Pasar var dump a la aplicación
+        this.app.use((req, res, next) => {
+            res.locals.varDump = varDump;
+            next();
+        });
 
         // Habilitar body-parser para leer datos del formulario
         this.app.use(bodyParser.urlencoded({extended: true}));
