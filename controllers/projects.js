@@ -1,3 +1,5 @@
+const Projects = require('../models/projects')
+
 const projectsHome = (req, res) => {
     res.render('index', {
         namePage: 'Proyectos'
@@ -10,16 +12,17 @@ const formProjects = (req, res) => {
     })
 }
 
-const newProject = (req, res) => {
-    const {name} = req.body;
+const newProject = async (req, res) => {
+    try {
+        const {name} = req.body;
 
-    // Validar si existe errores
-    let errors = [];
-    if (!name) errors.push({'text': 'Agregar un nombre al proyecto'})
-    if (errors.length > 0) res.render('new-project', {
-        namePage: 'Nuevo Proyecto',
-        errors
-    })
+        // Insertar en la DB
+        await Projects.create({name});
+
+        res.redirect('/');
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 module.exports = {

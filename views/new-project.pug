@@ -5,7 +5,7 @@ block content
 
         if errors
             each error in errors
-                .alerta.error #{error.text}
+                .alerta.error #{error.msg}
 
         form.agregar-proyecto(action='/new-project' method='POST')
             .campo
