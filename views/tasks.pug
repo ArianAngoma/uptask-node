@@ -10,7 +10,22 @@ block content
             .campo.enviar
                 input.boton.nueva-tarea(type='submit' value='Agregar')
 
-        // pre #{varDump(project)}
+        .listado-pendientes
+            ul
+                if tasks.length
+                    each task in tasks
+                        li.task
+                            p #{task.name}
+                            .acciones
+                                if task.state
+                                    i.far.fa-check-circle.completo
+                                else
+                                    i.far.fa-check-circle
+                                i.fas.fa-trash
+                else
+                    p No hay tareas en este proyecto
+
+        // pre #{varDump(tasks)}
 
         .contenedor-acciones
             a(href=`/project/edit/${project.id}`).boton Editar Proyecto

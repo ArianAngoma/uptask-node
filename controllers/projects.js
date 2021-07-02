@@ -1,4 +1,5 @@
 const Projects = require('../models/projects');
+const Tasks = require('../models/tasks');
 
 const projectsHome = async (req, res) => {
     const projects = await Projects.findAll();
@@ -43,10 +44,22 @@ const projectByUrl = async (req, res, next) => {
 
     if (!project) return next();
 
+    // Consultar Tasks de Project actual
+    const tasks =  await Tasks.findAll({
+        where: {
+            projectId: project.id
+        },
+        // JOIN
+        include: [
+            {model: Projects}
+        ]
+    })
+
     res.render('tasks', {
         namePage: 'Tareas del Proyecto',
         projects,
-        project
+        project,
+        tasks
     })
 }
 
