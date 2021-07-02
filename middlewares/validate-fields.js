@@ -3,7 +3,10 @@ const Projects = require("../models/projects");
 
 const validateFields = async (req, res, next) => {
     let namePage;
+
+    // Obtener todos los proyectos para mostrar en la vista, aún cuando hay errores
     const projects = await Projects.findAll();
+
     const url = req.url.replace('/', '');
     switch (url) {
         case 'new-project':

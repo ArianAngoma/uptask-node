@@ -1,4 +1,10 @@
 extends layout
 block content
     .contenido-principal
-        h1 #{namePage}
+        h1 #{namePage} - #{project.name}
+
+        // pre #{varDump(project)}
+
+        .contenedor-acciones
+            a(href=`/project/edit/${project.id}`).boton Editar Proyecto
+            button#eliminar-proyecto(type='button').boton.eliminar Eliminar

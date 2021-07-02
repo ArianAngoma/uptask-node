@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
-const {projectsHome, formProjects, newProject, projectByUrl} = require("../controllers/projects");
+const {projectsHome, formProjects, newProject, projectByUrl, formEditProject, editProject} = require("../controllers/projects");
 const {validateFields} = require('../middlewares/validate-fields');
 
 const router = Router();
@@ -15,6 +15,13 @@ router.post('/new-project', [
 ], newProject);
 
 // Listar proyectos
-router.get('/projects/:url', projectByUrl)
+router.get('/projects/:url', projectByUrl);
+
+// Actualizar proyecto
+router.get('/project/edit/:id', formEditProject);
+router.post('/new-project/:id', [
+    check('name').trim().notEmpty().withMessage('Nombre requerido').matches(/^[a-z\d\-_\s]+$/i).withMessage('Nombre inválido'),
+    validateFields
+], editProject);
 
 module.exports = router;

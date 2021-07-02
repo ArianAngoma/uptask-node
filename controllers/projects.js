@@ -35,7 +35,7 @@ const projectByUrl = async (req, res, next) => {
     const [projects, project] = await Promise.all([
         Projects.findAll(),
         Projects.findOne({
-            where:{
+            where: {
                 url
             }
         })
@@ -50,9 +50,46 @@ const projectByUrl = async (req, res, next) => {
     })
 }
 
+const formEditProject = async (req, res) => {
+    const {id} = req.params;
+    const [projects, project] = await Promise.all([
+        Projects.findAll(),
+        Projects.findOne({
+            where: {
+                id
+            }
+        })
+    ])
+    res.render('new-project', {
+        namePage: 'Editar Proyecto',
+        projects,
+        project
+    })
+}
+
+const editProject = async (req, res) => {
+    try {
+        const {name} = req.body;
+        const {id} = req.params;
+
+        // Actualizar en la DB
+        await Projects.update({name}, {
+            where: {
+                id
+            }
+        });
+
+        res.redirect('/');
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     projectsHome,
     formProjects,
     newProject,
-    projectByUrl
+    projectByUrl,
+    formEditProject,
+    editProject
 }
