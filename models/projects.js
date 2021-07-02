@@ -9,7 +9,7 @@ const Projects = dbConnection.define('projects', {
         primaryKey: true,
         autoIncrement: true
     },
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(100),
     url: DataTypes.STRING
 }, {
     hooks: {

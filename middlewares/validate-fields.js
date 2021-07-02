@@ -7,7 +7,9 @@ const validateFields = async (req, res, next) => {
     // Obtener todos los proyectos para mostrar en la vista, aún cuando hay errores
     const projects = await Projects.findAll();
 
-    const url = req.url.replace('/', '');
+    const url = req.url.replace(/\//g, '');
+    console.log({url});
+    console.log(req.url);
     switch (url) {
         case 'new-project':
             namePage = 'Nuevo Proyecto'

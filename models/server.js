@@ -8,6 +8,7 @@ const {varDump} = require('../helpers/db-data');
 
 // Importar el modelo
 require('../models/projects');
+require('../models/tasks');
 
 class Server {
     constructor() {
@@ -15,7 +16,8 @@ class Server {
         this.port = process.env.PORT;
 
         this.path = {
-            projects: ''
+            projects: '',
+            tasks: ''
         }
 
         // Conección a la base de datos
@@ -68,6 +70,7 @@ class Server {
 
     routes() {
         this.app.use(this.path.projects, require('../routes/projects'));
+        this.app.use(this.path.tasks, require('../routes/tasks'));
     }
 
     listen() {

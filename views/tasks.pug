@@ -3,6 +3,13 @@ block content
     .contenido-principal
         h1 #{namePage} - #{project.name}
 
+        form.agregar-tarea(action=`/projects/${project.url}` method='POST')
+            .campo
+                label(for="tarea") Tarea:
+                input.nombre-tarea(type='text' name='task' placeholder='Nombre tarea')
+            .campo.enviar
+                input.boton.nueva-tarea(type='submit' value='Agregar')
+
         // pre #{varDump(project)}
 
         .contenedor-acciones
