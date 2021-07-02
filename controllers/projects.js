@@ -85,11 +85,25 @@ const editProject = async (req, res) => {
     }
 }
 
+const deleteProject = async (req, res, next) => {
+    const {url} = req.params;
+    const resp = await Projects.destroy({
+        where: {
+            url
+        }
+    });
+
+    if (!resp) return next();
+
+    res.send('Proyecto eliminado correctamente')
+}
+
 module.exports = {
     projectsHome,
     formProjects,
     newProject,
     projectByUrl,
     formEditProject,
-    editProject
+    editProject,
+    deleteProject
 }
