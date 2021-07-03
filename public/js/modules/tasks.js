@@ -1,6 +1,8 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import {updateAdvance} from '../functions/advance';
+
 // Referencias HTML
 const tasks = document.querySelector('.listado-pendientes');
 
@@ -15,6 +17,7 @@ if (tasks) {
             axios.patch(url, {idTask}).then(resp => {
                 if (resp.status === 200) {
                     icon.classList.toggle('completo');
+                    updateAdvance();
                 }
             });
         }
@@ -44,6 +47,7 @@ if (tasks) {
                                 resp.data,
                                 'success'
                             )
+                            updateAdvance();
                         }
                     })
                 }
