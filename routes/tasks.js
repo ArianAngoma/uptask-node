@@ -1,10 +1,10 @@
 const {Router} = require('express');
-const {check} = require('express-validator');
-const {addTask} = require("../controllers/tasks");
-const {validateFields} = require('../middlewares/validate-fields');
+const {addTask, changeStateTask} = require("../controllers/tasks");
 
 const router = Router();
 
-router.post('/projects/:url', addTask)
+router.post('/projects/:url', addTask);
+
+router.patch('/tasks/:id', changeStateTask);
 
 module.exports = router;
