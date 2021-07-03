@@ -38,7 +38,22 @@ const changeStateTask = async (req, res, next) => {
     res.send('Actualizado');
 }
 
+const deleteTask = async (req, res, next) => {
+    const {id} = req.params;
+
+    const resp = await Tasks.destroy({
+        where: {
+            id
+        }
+    });
+
+    if (!resp) return next();
+
+    res.send('Tarea Eliminada Completamente');
+}
+
 module.exports = {
     addTask,
-    changeStateTask
+    changeStateTask,
+    deleteTask
 }
