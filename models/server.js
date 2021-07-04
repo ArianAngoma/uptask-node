@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan')
+const morgan = require('morgan');
 
 const {dbConnection} = require('../config/db');
 const {varDump} = require('../helpers/db-data');
@@ -48,6 +48,9 @@ class Server {
         // Morgan
         this.app.use(morgan('dev'));
 
+        // Habilitar body-parser para leer datos del formulario
+        this.app.use(express.urlencoded({extended: true}));
+
         // Lectura y parseo del body
         this.app.use(express.json());
 
@@ -65,9 +68,6 @@ class Server {
             res.locals.varDump = varDump;
             next();
         });
-
-        // Habilitar body-parser para leer datos del formulario
-        this.app.use(express.urlencoded({extended: true}));
     }
 
     routes() {
