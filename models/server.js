@@ -9,6 +9,7 @@ const {varDump} = require('../helpers/db-data');
 // Importar el modelo
 require('../models/projects');
 require('../models/tasks');
+require('../models/users');
 
 class Server {
     constructor() {
@@ -17,7 +18,8 @@ class Server {
 
         this.path = {
             projects: '',
-            tasks: ''
+            tasks: '',
+            users: ''
         }
 
         // Conección a la base de datos
@@ -71,6 +73,7 @@ class Server {
     routes() {
         this.app.use(this.path.projects, require('../routes/projects'));
         this.app.use(this.path.tasks, require('../routes/tasks'));
+        this.app.use(this.path.users, require('../routes/users'));
     }
 
     listen() {
