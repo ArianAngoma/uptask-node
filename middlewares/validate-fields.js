@@ -8,8 +8,6 @@ const validateFields = async (req, res, next) => {
     const projects = await Projects.findAll();
 
     const url = req.url.replace(/\//g, '');
-    console.log({url});
-    console.log(req.url);
     switch (url) {
         case 'new-project':
             namePage = 'Nuevo Proyecto'

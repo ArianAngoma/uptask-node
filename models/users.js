@@ -41,4 +41,10 @@ const Users = dbConnection.define('users', {
 
 Users.hasMany(Projects);
 
+Users.prototype.toJSON = function () {
+    const values = Object.assign({}, this.get());
+    delete values.password;
+    return values;
+}
+
 module.exports = Users;

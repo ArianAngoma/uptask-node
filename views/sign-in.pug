@@ -6,13 +6,16 @@ html(lang='es')
 
     body.login
         .contenedor-formulario
-            h1 Crea tu cuenta en UpTask
+            h1 Inicia sisión en UpTask
 
             if errors
-                each error in errors
-                    p.error.alerta #{error.message}
+                if (typeof errors === "object")
+                    each error in errors
+                        .alerta.error #{error.msg}
+                else
+                    p.alerta.error #{errors}
 
-            form#formulario.caja.caja-login(method='POST' action='/create-account')
+            form#formulario.caja.caja-login(method='POST' action='/sign-in')
                 .campo
                     loabel(for='email') E-mail:
                     input(type='email' name='email' placeholder='Email' value= email)
@@ -20,6 +23,6 @@ html(lang='es')
                     loabel(for='password') Contraseña:
                     input(type='password' name='password' placeholder='Contraseña' value= password)
                 .campo.enviar
-                    input.boton(type='submit' value='Crear Cuenta')
+                    input.boton(type='submit' value='Iniciar Sesión')
                 .campo
-                    a(href='/sign-in') Volver a Iniciar Sesión
+                    a(href='/create-account') Crea cuenta
